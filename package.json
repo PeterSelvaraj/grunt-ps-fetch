@@ -1,0 +1,32 @@
+{
+  "name": "grunt-ps-fetch",
+  "version": "0.0.2-beta",
+  "description": "GruntJS",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeterSelvaraj/grunt-ps-fetch.git"
+  },
+  "keywords": [
+    "GruntJS"
+  ],
+  "author": "Peter Selvaraj",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PeterSelvaraj/grunt-ps-fetch/issues"
+  },
+  "homepage": "https://github.com/PeterSelvaraj/grunt-ps-fetch#readme",
+  "dependencies": {
+    "axios": "~1.6.0"
+  },
+  "devDependencies": {
+    "grunt": "~1.6.1",
+    "fast-glob": "~3.3.2",
+    "grunt-contrib-clean": "~2.0.1",
+    "grunt-contrib-jshint": "~3.2.0",
+    "grunt-ps-file": "~1.1.0"
+  }
+}
