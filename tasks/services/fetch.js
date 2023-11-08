@@ -10,7 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const { log } = require('console');
+const log = require('grunt-ps-log');
 
 class FetchSvc {
   #opts;
@@ -28,7 +28,7 @@ class FetchSvc {
 
     const config = this.#getFetchConfig(opts);
 
-    log(`Downloading ${opts.url}...`);
+    log.log(`Downloading ${opts.url}...`);
 
     axios(config).then(resp => {
       if (resp.status === 200) {
@@ -64,13 +64,13 @@ class FetchSvc {
     const pipe = fs.createWriteStream(this.#opts.dest);
 
     resp.data.pipe(pipe).on('close', () => {
-      log('Download complete!');
+      log.ok('Download complete!');
       done();
     });
   }
 
   #onError() {
-    log(`Downloading ${this.#opts.url} failed!`);
+    log.fail(`Downloading ${this.#opts.url} failed!`);
   }
 }
 

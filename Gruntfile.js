@@ -8,7 +8,7 @@
 'use strict';
 
 const glob = require('fast-glob');
-const { log } = require('console');
+const log = require('grunt-ps-log');
 const fileSvc = require('grunt-ps-file');
 
 module.exports = function (grunt) {
@@ -59,12 +59,12 @@ module.exports = function (grunt) {
 
       if (expData !== outData) {
         success = false;
-        log(`Output file ${outFile} is invalid!`);
+        log.error(`Output file ${outFile} is invalid!`);
       }
     });
 
     if (success) {
-      log('All tests passed successfully!');
+      log.ok('All tests passed successfully!');
     }
   });
 
