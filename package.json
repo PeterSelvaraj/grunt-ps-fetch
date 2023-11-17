@@ -1,6 +1,6 @@
 {
   "name": "grunt-ps-fetch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "GruntJS",
   "main": "Gruntfile.js",
   "scripts": {

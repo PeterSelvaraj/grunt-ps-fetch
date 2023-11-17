@@ -7,10 +7,9 @@
 
 'use strict';
 
-const grunt = require('grunt');
 const fetchSvc = require('./services/fetch');
 
-module.exports = function () {
+module.exports = function (grunt) {
   grunt.registerMultiTask('psFetch', 'Download files...', function () {
     const done = this.async();
     fetchSvc.fetchFiles(this.files, done);
