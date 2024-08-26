@@ -9,11 +9,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const axios = require('axios');
 const log = require('grunt-ps-log');
+const { Downloader } = require('nodejs-file-downloader');
 
 class FetchSvc {
-  #opts;
   #fileIndex = 0;
 
   #createDest(dest) {
@@ -22,22 +21,24 @@ class FetchSvc {
     }
   }
 
-  #fetch(opts, done) {
-    this.#opts = opts;
-    this.#createDest(path.dirname(opts.dest));
+  async #fetchFile(opts, done) {
+    const dest = path.dirname(opts.dest);
 
-    const config = this.#getFetchConfig(opts);
+    this.#createDest(dest);
 
     log.log(`Downloading ${opts.url}...`);
 
-    axios(config).then(resp => {
-      if (resp.status === 200) {
-        this.#onComplete(resp, done);
-      } else {
-        this.#onError();
-        done();
-      }
+    const downloader = new Downloader({
+      url: opts.url,
+      directory: dest
     });
+
+    try {
+      await downloader.download();
+      done();
+    } catch (error) {
+      log.fail(`Downloading ${opts.url} failed!`);
+    }
   }
 
   fetchFiles(files, done) {
@@ -45,32 +46,11 @@ class FetchSvc {
       this.#fileIndex = 0;
       done();
     } else {
-      this.#fetch(files[this.#fileIndex], () => {
+      this.#fetchFile(files[this.#fileIndex], () => {
         this.#fileIndex++;
         this.fetchFiles(files, done);
       });
     }
-  }
-
-  #getFetchConfig(opts) {
-    return {
-      url: opts.url,
-      method: 'get',
-      responseType: 'stream'
-    };
-  }
-
-  #onComplete(resp, done) {
-    const pipe = fs.createWriteStream(this.#opts.dest);
-
-    resp.data.pipe(pipe).on('close', () => {
-      log.ok('Download complete!');
-      done();
-    });
-  }
-
-  #onError() {
-    log.fail(`Downloading ${this.#opts.url} failed!`);
   }
 }
 

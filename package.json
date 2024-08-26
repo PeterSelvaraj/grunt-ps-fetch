@@ -1,6 +1,6 @@
 {
   "name": "grunt-ps-fetch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "GruntJS",
   "main": "Gruntfile.js",
   "scripts": {
@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/PeterSelvaraj/grunt-ps-fetch#readme",
   "dependencies": {
-    "axios": "~1.6.0",
     "grunt": "~1.6.1",
-    "grunt-ps-log": "~1.1.0"
+    "grunt-ps-log": "~1.1.0",
+    "nodejs-file-downloader": "~4.13.0"
   },
   "devDependencies": {
     "fast-glob": "~3.3.2",
